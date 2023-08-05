@@ -1,6 +1,6 @@
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from "reactstrap";
 import Base from "../components/Base";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signupService } from "../services/user-service";
 import { toast } from 'react-toastify';
 
