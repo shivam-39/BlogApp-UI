@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './components/PrivateRoute';
 import UserDashboard from './pages/user-routes/UserDashboard';
 import Profile from './pages/user-routes/Profile';
+import NewFeed from './pages/NewFeed';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Home />}></Route>
+                    <Route path='/feed' element={<NewFeed />}></Route>
                     <Route path='/login' element={<Login />}></Route>
                     <Route path='/signup' element={<Signup />}></Route>
                     <Route path='/about' element={<About />}></Route>

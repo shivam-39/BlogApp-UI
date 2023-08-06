@@ -11,6 +11,7 @@ export const isLoggedIn = () => {
 
 export const doLogout = (next) => {
     localStorage.removeItem("data");
+    localStorage.clear();
     next();
 }
 

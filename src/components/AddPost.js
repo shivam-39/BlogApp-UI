@@ -31,7 +31,7 @@ function AddPost() {
         }).catch(error => {
             console.log(error);
         })
-    }, [postData]);
+    }, []);
 
     const fieldChange = (event) => {
         // console.log(event);
@@ -56,7 +56,7 @@ function AddPost() {
         if (postData.title.trim() === "") {
             toast.info("Title cannot be blank")
             return;
-        } else if (postData.categoryId.trim() === "" || postData.categoryId === -1) {
+        } else if (postData.categoryId.trim() === -1) {
             toast.info("Please select a category!")
             return;
         } else if (postData.content.trim() === "") {
