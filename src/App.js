@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 import UserDashboard from './pages/user-routes/UserDashboard';
 import Profile from './pages/user-routes/Profile';
 import NewFeed from './pages/NewFeed';
+import FullPost from './pages/FullPost';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path='/signup' element={<Signup />}></Route>
                     <Route path='/about' element={<About />}></Route>
                     <Route path='/services' element={<Services />}></Route>
+                    <Route path='/post/:postId' element={<FullPost />}></Route>
                     <Route path='/user' element={<PrivateRoute />}>
                         <Route path='dashboard' element={<UserDashboard />}></Route>
                         <Route path='profile' element={<Profile />}></Route>
