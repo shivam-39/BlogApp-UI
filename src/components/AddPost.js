@@ -65,7 +65,7 @@ function AddPost() {
         }
         postData['userId'] = getCurrentUserData().id;
         createPost(postData).then(data => {
-            console.log(data);
+            // console.log(data);
             toast.success("Post created");
             resetPostData();
         }).catch(error => {

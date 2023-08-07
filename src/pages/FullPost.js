@@ -5,12 +5,17 @@ import { Card, CardBody, CardText, Col, Container, Row } from 'reactstrap'
 import { getPostById } from '../services/post-service';
 import { toast } from 'react-toastify';
 import { BASE_URL } from '../services/helper';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Input, Button } from 'reactstrap';
+import { createComment } from '../services/comment-service';
+import { isLoggedIn } from '../services/auth-service';
 
 function FullPost() {
 
     const { postId } = useParams();
     const [postData, setPostData] = useState(null);
+    const [newCommentData, setNewCommentData] = useState({
+        content: ""
+    })
 
     useEffect(() => {
         getPostById(postId).then(data => {
@@ -24,6 +29,26 @@ function FullPost() {
 
     const printDate = (date) => {
         return new Date(date).toDateString() + ", " + new Date(date).toLocaleTimeString();
+    }
+
+    const submitComment = () => {
+        console.log(isLoggedIn());
+        if (newCommentData.content.trim() == "") {
+            toast.info("Cannot create empty comment!");
+            return;
+        } else if (!isLoggedIn()) {
+            toast.info("Login/SignUn to add a comment!");
+            return;
+        }
+        createComment(newCommentData, postData.postId).then(data => {
+            // console.log(data);
+            toast.success("Comment added successfully!");
+            setNewCommentData({ content: "" });
+            setPostData({ ...postData, commentSet: [...postData.commentSet, data] });
+        }).catch(error => {
+            console.log(error);
+            toast.error("Error in adding comment!");
+        })
     }
 
     return (
@@ -65,6 +90,55 @@ function FullPost() {
                                 )
                             }
                         </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={{ size: 12, offset: 0 }} className='mt-4'>
+                        <Card style={{ backgroundColor: '#7c6e5480' }}>
+                            {
+                                (postData) && (
+                                    <CardBody>
+                                        {/* <div className='divider mb-1' style={{ width: '100%', height: '1px', background: '#e2e2e2' }}></div> */}
+                                        <h4>Comments: {postData.commentSet.length}</h4>
+                                        <Row>
+                                            <Col md={{ size: 9, offset: 1 }}>
+                                                <Card style={{ padding: '0' }}>
+                                                    <CardBody>
+                                                        <Row className="row-cols-lg-auto g-3 align-items-center">
+                                                            <Col style={{ minWidth: '90%' }}>
+                                                                <Input
+                                                                    id="newComment"
+                                                                    name="newComment"
+                                                                    placeholder="Write Comment..."
+                                                                    type="text"
+                                                                    value={newCommentData.content}
+                                                                    onChange={event => setNewCommentData({ content: event.target.value })}
+                                                                    style={{ border: '0' }}
+                                                                />
+                                                            </Col>
+                                                            <Col>
+                                                                <Button color="primary" outline onClick={submitComment}>Submit</Button>
+                                                            </Col>
+                                                        </Row>
+                                                    </CardBody>
+
+                                                </Card>
+                                                {
+                                                    postData.commentSet.map(comment => (
+                                                        <Card key={comment.commentId} className='mt-2'>
+                                                            <CardBody>
+                                                                <CardText>{comment.content}</CardText>
+                                                            </CardBody>
+                                                        </Card>
+                                                    ))
+                                                }
+                                            </Col>
+                                        </Row>
+                                    </CardBody>
+                                )
+                            }
+                        </Card>
+
                     </Col>
                 </Row>
             </Container>
