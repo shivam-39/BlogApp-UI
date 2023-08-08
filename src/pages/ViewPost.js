@@ -9,7 +9,7 @@ import { Breadcrumb, BreadcrumbItem, Input, Button } from 'reactstrap';
 import { createComment } from '../services/comment-service';
 import { isLoggedIn } from '../services/auth-service';
 
-function FullPost() {
+function ViewPost() {
 
     const { postId } = useParams();
     const [postData, setPostData] = useState(null);
@@ -146,4 +146,4 @@ function FullPost() {
     )
 }
 
-export default FullPost
+export default ViewPost

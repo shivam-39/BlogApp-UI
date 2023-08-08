@@ -5,7 +5,7 @@ import SidebarMenu from '../components/SidebarMenu'
 import { useParams } from 'react-router-dom'
 import { getAllPostByCategory } from '../services/post-service'
 import { toast } from 'react-toastify'
-import ShowPost from '../components/ShowPost'
+import CardOfPost from '../components/CardOfPost'
 import { getCategory } from '../services/category-service'
 
 function ShowPostByCategory() {
@@ -41,7 +41,7 @@ function ShowPostByCategory() {
                     <h1 className='text-center my-2'>{category.catTitle}</h1>
                     {(postByCategoryList) && (
                         postByCategoryList.map(p => (
-                            <ShowPost post={p} key={p.postId}></ShowPost>
+                            <CardOfPost post={p} key={p.postId}></CardOfPost>
                         ))
                     )}
                 </Col>

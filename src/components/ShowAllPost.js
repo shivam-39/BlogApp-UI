@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getAllPost } from '../services/post-service';
 import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap';
-import ShowPost from './ShowPost';
+import CardOfPost from './CardOfPost';
 import { toast } from 'react-toastify';
 
-function NewPosts() {
+function ShowAllPost() {
 
     const [postDataList, setPostDataList] = useState({
         content: [],
@@ -37,7 +37,7 @@ function NewPosts() {
                     <h1 className='text-center my-2'>All Blogs</h1>
                     {
                         postDataList.content.map((post) => {
-                            return <ShowPost post={post} key={post.postId}></ShowPost>
+                            return <CardOfPost post={post} key={post.postId}></CardOfPost>
                         })
 
                     }
@@ -65,4 +65,4 @@ function NewPosts() {
     )
 }
 
-export default NewPosts
+export default ShowAllPost

@@ -1,7 +1,7 @@
 import React from 'react'
 import Base from '../components/Base'
 import SidebarMenu from '../components/SidebarMenu'
-import NewPosts from '../components/NewPosts'
+import ShowAllPost from '../components/ShowAllPost'
 import { Col, Row } from 'reactstrap'
 
 function NewFeed() {
@@ -12,7 +12,7 @@ function NewFeed() {
                     <SidebarMenu />
                 </Col>
                 <Col md={{ size: 10 }}>
-                    <NewPosts />
+                    <ShowAllPost />
                 </Col>
             </Row>
         </Base>

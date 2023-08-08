@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './components/PrivateRoute';
 import UserDashboard from './pages/user-routes/UserDashboard';
 import Profile from './pages/user-routes/Profile';
-import FullPost from './pages/FullPost';
+import ViewPost from './pages/ViewPost';
 import UserProvider from './context/UserProvider';
 import NewFeed from './pages/NewFeed';
 import ShowPostByCategory from './pages/ShowPostByCategory';
@@ -27,7 +27,7 @@ function App() {
                         <Route path='/signup' element={<Signup />}></Route>
                         <Route path='/about' element={<About />}></Route>
                         <Route path='/services' element={<Services />}></Route>
-                        <Route path='/post/:postId' element={<FullPost />}></Route>
+                        <Route path='/post/:postId' element={<ViewPost />}></Route>
                         <Route path='/category/:catId' element={<ShowPostByCategory />}></Route>
                         <Route path='/user' element={<PrivateRoute />}>
                             <Route path='dashboard' element={<UserDashboard />}></Route>

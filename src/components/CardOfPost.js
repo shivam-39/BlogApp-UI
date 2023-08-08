@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, CardBody, CardText } from 'reactstrap'
 
-function ShowPost({ post = { title: "This is default post title", content: "This is default post content" } }) {
+function CardOfPost({ post = { title: "This is default post title", content: "This is default post content" } }) {
     return (
         <Card className='shadow mt-2'>
             <CardBody>
@@ -17,4 +17,4 @@ function ShowPost({ post = { title: "This is default post title", content: "This
     )
 }
 
-export default ShowPost
+export default CardOfPost
