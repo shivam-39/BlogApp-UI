@@ -3,7 +3,7 @@ import { Button, Card, CardBody, Container, Form, Input, Label } from 'reactstra
 import { getAllCategory } from '../services/category-service';
 import JoditEditor from 'jodit-react';
 import { toast } from 'react-toastify';
-import { createPost } from '../services/post-service';
+import { createPost, uploadPostImage } from '../services/post-service';
 import { getCurrentUserData } from '../services/auth-service';
 
 function AddPost() {
@@ -15,6 +15,7 @@ function AddPost() {
         categoryId: -1,
         content: ""
     });
+    const [postImage, setPostImage] = useState(null);
 
     // const joditConfig = useMemo(
     //     {
@@ -56,7 +57,7 @@ function AddPost() {
         if (postData.title.trim() === "") {
             toast.info("Title cannot be blank")
             return;
-        } else if (postData.categoryId.trim() === -1) {
+        } else if (postData.categoryId === -1) {
             toast.info("Please select a category!")
             return;
         } else if (postData.content.trim() === "") {
@@ -68,11 +69,26 @@ function AddPost() {
             // console.log(data);
             toast.success("Post created");
             resetPostData();
+            uploadPostImage(postImage, data.postId).then(imgData => {
+                toast.success("Image uppload successfully");
+                setPostImage(null);
+            }).catch(error => {
+                console.log(error);
+                toast.error("Error in uplaoding image!");
+            })
         }).catch(error => {
             console.log(error);
             toast.error("Error in creating post");
         })
     }
+
+    const handleFileChange = (event) => {
+        const fileObj = event.target.files && event.target.files[0];
+        if (!fileObj) {
+            return;
+        }
+        setPostImage(fileObj);
+    };
 
     return (
         <div className='wrapper'>
@@ -103,7 +119,7 @@ function AddPost() {
                                 value={postData.categoryId}
                                 onChange={(e) => fieldChange(e)}
                             >
-                                <option disabled value={-1}>---Select Category---</option>
+                                <option value={-1}>---Select Category---</option>
                                 {categoryList.map(c => {
                                     return <option value={c.catId} key={c.catId}>{c.catTitle}</option>
                                 })}
@@ -119,7 +135,11 @@ function AddPost() {
                                 onChange={() => { }}
                             ></JoditEditor>
                         </div>
-                        <Container className='text-center'>
+                        <div className='mt-3'>
+                            <Label for='postImage'>Add Image</Label>
+                            <Input id='postImage' name='postImage' type='file' onChange={handleFileChange}></Input>
+                        </div>
+                        <Container className='text-center mt-3'>
                             <Button type='submit' color='primary'>Create Post</Button>
                             <Button
                                 type="reset"

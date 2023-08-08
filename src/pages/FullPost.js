@@ -59,7 +59,7 @@ function FullPost() {
                     <BreadcrumbItem><Link to="/feed" style={{ color: "blue", textEmphasisColor: 'gray' }}>All Posts</Link></BreadcrumbItem>
                     {(postData) && (
                         <>
-                            <BreadcrumbItem><Link to="/category" style={{ color: "blue", textEmphasisColor: 'gray' }}>{postData.category.catTitle}</Link></BreadcrumbItem>
+                            <BreadcrumbItem><Link to={"/category/" + postData.category.catId} style={{ color: "blue", textEmphasisColor: 'gray' }}>{postData.category.catTitle}</Link></BreadcrumbItem>
                             <BreadcrumbItem active tag="span">{postData.title}</BreadcrumbItem>
                         </>
                     )}

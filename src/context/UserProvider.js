@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import userContext from './userContext'
-import { getCurrentUserData, isLoggedIn } from '../services/auth-service';
+import { getCurrentUserData } from '../services/auth-service';
 
 function UserProvider({ children }) {
 
