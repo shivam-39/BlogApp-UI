@@ -1,7 +1,7 @@
-import { privateAxios, myAxios } from "./helper";
+import { myAxios } from "./helper";
 
 export const getAllCategory = () => {
-    return privateAxios.get(`/category/`).then(response => { return response.data });
+    return myAxios.get(`/category/`).then(response => { return response.data });
 };
 
 export const getCategory = (catId) => {
