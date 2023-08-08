@@ -22,3 +22,7 @@ export const uploadPostImage = (image, postId) => {
         }
     }).then(response => response.data);
 }
+
+export const getAllPostByCategory = (catId) => {
+    return myAxios.get(`/post/category/${catId}`).then(response => response.data);
+}

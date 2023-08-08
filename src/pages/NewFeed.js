@@ -1,70 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Base from '../components/Base'
-import { getAllPost } from '../services/post-service';
-import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap';
-import ShowPost from '../components/ShowPost';
-import { toast } from 'react-toastify';
+import SidebarMenu from '../components/SidebarMenu'
+import NewPosts from '../components/NewPosts'
+import { Col, Row } from 'reactstrap'
 
 function NewFeed() {
-
-    const [postDataList, setPostDataList] = useState({
-        content: [],
-        lastPage: false,
-        pageNumber: 0,
-        pageSize: "",
-        totalElements: ""
-    });
-
-    useEffect(() => {
-        changePage();
-    }, []);
-
-    const changePage = (pageNumber = 0, pageSize = 5) => {
-        if (pageNumber < 0 || (postDataList.lastPage && pageNumber >= postDataList.totalElements)) return;
-        getAllPost(pageNumber, pageSize).then(data => {
-            // console.log(data);
-            setPostDataList(data);
-            window.scroll(0, 0);
-        }).catch(error => {
-            console.log(error);
-            toast.error("Error in loading data!");
-        })
-    }
-
     return (
         <Base>
-            <div className="container-fluid">
-                <Row>
-                    <Col md={{ size: 10, offset: 1 }}>
-                        <h1 className='text-center'>All Blogs</h1>
-                        {
-                            postDataList.content.map((post) => {
-                                return <ShowPost post={post} key={post.postId}></ShowPost>
-                            })
-
-                        }
-                        <Container className='mt-3' style={{ display: 'flex', justifyContent: 'center' }}>
-                            <Pagination size='md'>
-                                <PaginationItem onClick={() => changePage(postDataList.pageNumber - 1)} disabled={postDataList.pageNumber === 0}>
-                                    <PaginationLink previous>Prev</PaginationLink>
-                                </PaginationItem>
-                                {
-                                    [...Array(postDataList.totalElements)].map((item, index) => (
-                                        <PaginationItem onClick={() => changePage(index)} key={index} active={index === postDataList.pageNumber}>
-                                            <PaginationLink>{index + 1}</PaginationLink>
-                                        </PaginationItem>
-                                    ))
-                                }
-                                <PaginationItem onClick={() => changePage(postDataList.pageNumber + 1)} disabled={postDataList.lastPage}>
-                                    <PaginationLink next>Next</PaginationLink>
-                                </PaginationItem>
-                            </Pagination>
-                        </Container>
-
-                    </Col>
-                </Row>
-            </div>
-        </Base >
+            <Row className='mx-4'>
+                <Col md={{ size: 2 }} style={{ marginTop: '64px', marginBottom: '30px' }}>
+                    <SidebarMenu />
+                </Col>
+                <Col md={{ size: 10 }}>
+                    <NewPosts />
+                </Col>
+            </Row>
+        </Base>
     )
 }
 
