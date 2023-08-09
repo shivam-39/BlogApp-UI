@@ -63,6 +63,9 @@ function AddPost() {
         } else if (postData.content.trim() === "") {
             toast.info("Content cannot be blank")
             return;
+        } else if (postImage == null) {
+            toast.info("please add an image");
+            return;
         }
         postData['userId'] = getCurrentUserData().id;
         createPost(postData).then(data => {
@@ -91,7 +94,7 @@ function AddPost() {
     };
 
     return (
-        <div className='wrapper'>
+        <div className='wrapper mb-4'>
             <Card className='shadow-sm mt-3' style={{ backgroundColor: '#d7ccc8' }}>
                 <CardBody>
                     <h3>Whats on your mind ??</h3>

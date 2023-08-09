@@ -3,6 +3,7 @@ import { getAllPost } from '../services/post-service';
 import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap';
 import CardOfPost from './CardOfPost';
 import { toast } from 'react-toastify';
+import { deletePost } from '../services/post-service';
 
 function ShowAllPost() {
 
@@ -10,8 +11,8 @@ function ShowAllPost() {
         content: [],
         lastPage: false,
         pageNumber: 0,
-        pageSize: "",
-        totalElements: ""
+        pageSize: 5,
+        totalElements: 0
     });
 
     useEffect(() => {
@@ -30,6 +31,16 @@ function ShowAllPost() {
         })
     }
 
+    const handleDelete = (postId) => {
+        deletePost(postId).then(data => {
+            toast.success("Post deleted!");
+            changePage(postDataList.pageNumber, postDataList.pageSize);
+        }).catch(error => {
+            console.log((error));
+            toast.error("Error occured when delete Post!");
+        });
+    }
+
     return (
         <div className="container-fluid">
             <Row>
@@ -37,7 +48,7 @@ function ShowAllPost() {
                     <h1 className='text-center my-2'>All Blogs</h1>
                     {
                         postDataList.content.map((post) => {
-                            return <CardOfPost post={post} key={post.postId}></CardOfPost>
+                            return <CardOfPost post={post} key={post.postId} handleDelete={handleDelete}></CardOfPost>
                         })
 
                     }

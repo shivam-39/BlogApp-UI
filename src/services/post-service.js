@@ -30,3 +30,7 @@ export const getAllPostByCategory = (catId) => {
 export const getAllPostByUser = (userId) => {
     return myAxios.get(`/post/user/${userId}`).then(response => response.data);
 }
+
+export const deletePost = (postId) => {
+    return privateAxios.delete(`/post/${postId}`).then(response => response.data);
+}

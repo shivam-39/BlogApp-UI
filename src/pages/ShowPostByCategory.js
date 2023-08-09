@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import CardOfPost from '../components/CardOfPost'
 import { getCategory } from '../services/category-service'
 import { isLoggedIn } from '../services/auth-service'
+import { deletePost } from '../services/post-service'
 
 function ShowPostByCategory() {
 
@@ -24,18 +25,32 @@ function ShowPostByCategory() {
             console.log(error);
             toast.error("Error in loading data!");
         })
-        getAllPostByCategory(catId).then(data => {
-            setPostByCategoryList(data);
-        }).catch(error => {
-            console.log(error);
-            toast.error("Error in loading data!");
-        })
+        getListofReqPost();
     }, [catId]);
 
     const handleAddPost = () => {
         if (!isLoggedIn()) {
             toast.info("Login to create a Post");
         }
+    }
+
+    const getListofReqPost = () => {
+        getAllPostByCategory(catId).then(data => {
+            setPostByCategoryList(data);
+        }).catch(error => {
+            console.log(error);
+            toast.error("Error in loading data!");
+        })
+    }
+
+    const handleDelete = (postId) => {
+        deletePost(postId).then(data => {
+            toast.success("Post deleted!");
+            getListofReqPost();
+        }).catch(error => {
+            console.log((error));
+            toast.error("Error occured when delete Post!");
+        });
     }
 
     return (
@@ -48,7 +63,7 @@ function ShowPostByCategory() {
                     <h1 className='text-center my-2'>{category.catTitle}</h1>
                     {
                         postByCategoryList.map(p => (
-                            <CardOfPost post={p} key={p.postId}></CardOfPost>
+                            <CardOfPost post={p} key={p.postId} handleDelete={handleDelete}></CardOfPost>
                         )
                         )}
                     {
