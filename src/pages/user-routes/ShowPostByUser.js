@@ -32,7 +32,8 @@ function ShowPostByUser() {
     const handleDelete = (postId) => {
         deletePost(postId).then(data => {
             toast.success("Post deleted!");
-            getListofReqPost();
+            let filteredList = postByUserList.content.filter(p => p.postId != postId);
+            setPostByUserList([...filteredList]);
         }).catch(error => {
             console.log((error));
             toast.error("Error occured when delete Post!");

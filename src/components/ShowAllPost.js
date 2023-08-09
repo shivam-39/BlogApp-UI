@@ -34,7 +34,8 @@ function ShowAllPost() {
     const handleDelete = (postId) => {
         deletePost(postId).then(data => {
             toast.success("Post deleted!");
-            changePage(postDataList.pageNumber, postDataList.pageSize);
+            let filteredList = postDataList.content.filter(p => p.postId != postId);
+            setPostDataList({ ...postDataList, content: filteredList });
         }).catch(error => {
             console.log((error));
             toast.error("Error occured when delete Post!");
