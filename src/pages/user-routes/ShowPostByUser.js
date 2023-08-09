@@ -32,7 +32,7 @@ function ShowPostByUser() {
     const handleDelete = (postId) => {
         deletePost(postId).then(data => {
             toast.success("Post deleted!");
-            let filteredList = postByUserList.content.filter(p => p.postId != postId);
+            let filteredList = postByUserList.filter(p => p.postId != postId);
             setPostByUserList([...filteredList]);
         }).catch(error => {
             console.log((error));

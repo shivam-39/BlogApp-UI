@@ -46,7 +46,7 @@ function ShowPostByCategory() {
     const handleDelete = (postId) => {
         deletePost(postId).then(data => {
             toast.success("Post deleted!");
-            let filteredList = postByCategoryList.content.filter(p => p.postId != postId);
+            let filteredList = postByCategoryList.filter(p => p.postId != postId);
             setPostByCategoryList([...filteredList]);
         }).catch(error => {
             console.log((error));
