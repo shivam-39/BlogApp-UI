@@ -5,12 +5,12 @@ import userContext from '../../context/userContext'
 
 function Profile() {
 
-    const user = useContext(userContext);
+    const userContextData = useContext(userContext);
 
     return (
         <Base>
             <div>Profile</div>
-            <h1>Welcome to your profile {user.name}</h1>
+            <h1>Welcome to your profile {userContextData.user.name}</h1>
         </Base>
     )
 }

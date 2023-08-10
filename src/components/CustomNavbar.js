@@ -1,5 +1,5 @@
 import { NavLink as ReactLink, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     Collapse,
     Navbar,
@@ -17,9 +17,11 @@ import {
 import { getCurrentUserData, isLoggedIn } from '../services/auth-service';
 import { doLogout } from '../services/auth-service';
 import { toast } from 'react-toastify';
+import userContext from '../context/userContext'
 
 const CustomNavbar = () => {
 
+    const userContextData = useContext(userContext);
     const [isOpen, setIsOpen] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [userData, setUserData] = useState(undefined);
@@ -37,6 +39,7 @@ const CustomNavbar = () => {
             setLoggedIn(false);
             navigate("/");
             toast.info("User Logged out!!")
+            userContextData.setUser({ name: "" });
         });
     }
 
