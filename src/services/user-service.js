@@ -7,3 +7,7 @@ export const signupService = (userData) => {
 export const loginService = (loginData) => {
     return myAxios.post('/auth/login', loginData).then((response) => response.data);
 }
+
+export const getUserById = (userId) => {
+    return myAxios.get(`/users/${userId}`).then(res => res.data);
+}
