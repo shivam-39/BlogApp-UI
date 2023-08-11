@@ -14,10 +14,6 @@ function CardOfPost({ post = { title: "This is default post title", content: "Th
         }
     }, []);
 
-    const handleEdit = () => {
-
-    }
-
     return (
         <Card className='shadow mt-2'>
             <CardBody>
@@ -29,7 +25,7 @@ function CardOfPost({ post = { title: "This is default post title", content: "Th
                     {
                         userId !== post.user.id ? "" :
                             <div style={{ float: 'right' }}>
-                                <Button onClick={() => handleEdit(post.postId)} className='ms-3' color="warning" style={{ minWidth: '100px' }}>Update</Button>
+                                <Button tag={Link} to={`/user/edit-post/${post.postId}`} className='ms-3' color="warning" style={{ minWidth: '100px' }}>Edit</Button>
                                 <Button onClick={() => handleDelete(post.postId)} className='ms-3' color="danger" style={{ minWidth: '100px' }}>Delete</Button>
                             </div>
                     }

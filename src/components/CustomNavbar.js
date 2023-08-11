@@ -86,7 +86,7 @@ const CustomNavbar = () => {
                             loggedIn && (
                                 <>
                                     <NavItem>
-                                        <NavLink tag={ReactLink} to="/user/profile">{userData?.name}</NavLink>
+                                        <NavLink tag={ReactLink} to={"/user/profile/" + userData.id}>{userData?.name}</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={ReactLink} to="/user/dashboard">Dashboard</NavLink>

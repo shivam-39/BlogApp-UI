@@ -14,6 +14,7 @@ import ViewPost from './pages/ViewPost';
 import UserProvider from './context/UserProvider';
 import NewFeed from './pages/NewFeed';
 import ShowPostByCategory from './pages/ShowPostByCategory';
+import EditPost from './components/EditPost';
 
 function App() {
     return (
@@ -31,7 +32,8 @@ function App() {
                         <Route path='/category/:catId' element={<ShowPostByCategory />}></Route>
                         <Route path='/user' element={<PrivateRoute />}>
                             <Route path='dashboard' element={<UserDashboard />}></Route>
-                            <Route path='profile' element={<Profile />}></Route>
+                            <Route path='profile/:userId' element={<Profile />}></Route>
+                            <Route path='edit-post/:postId' element={<EditPost />}></Route>
                         </Route>
                     </Routes>
                     <ToastContainer
