@@ -88,7 +88,6 @@ function EditPost() {
     const editPostHtml = () => {
         return (
             <div className='wrapper mb-4'>
-                {JSON.stringify(postData)}
                 <Card className='shadow-sm mt-3' style={{ backgroundColor: '#d7ccc8' }}>
                     <CardBody>
                         <h3>Edit your Post here</h3>

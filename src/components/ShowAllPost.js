@@ -4,6 +4,7 @@ import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 
 import CardOfPost from './CardOfPost';
 import { toast } from 'react-toastify';
 import { deletePost } from '../services/post-service';
+import CustomLoading from './CustomLoading';
 
 function ShowAllPost() {
 
@@ -14,6 +15,7 @@ function ShowAllPost() {
         pageSize: 5,
         totalElements: 0
     });
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         changePage();
@@ -21,26 +23,34 @@ function ShowAllPost() {
 
     const changePage = (pageNumber = 0, pageSize = 5) => {
         if (pageNumber < 0 || (postDataList.lastPage && pageNumber >= postDataList.totalElements)) return;
+        setLoading(true);
         getAllPost(pageNumber, pageSize).then(data => {
             // console.log(data);
             setPostDataList(data);
             window.scroll(0, 0);
+            setLoading(false);
         }).catch(error => {
             console.log(error);
+            setLoading(false);
             toast.error("Error in loading data!");
         })
     }
 
     const handleDelete = (postId) => {
+        setLoading(true);
         deletePost(postId).then(data => {
             toast.success("Post deleted!");
             let filteredList = postDataList.content.filter(p => p.postId != postId);
             setPostDataList({ ...postDataList, content: filteredList });
+            setLoading(false);
         }).catch(error => {
             console.log((error));
+            setLoading(false);
             toast.error("Error occured when delete Post!");
         });
     }
+
+    if (loading) return (<CustomLoading></CustomLoading>)
 
     return (
         <div className="container-fluid">

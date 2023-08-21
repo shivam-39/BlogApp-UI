@@ -5,6 +5,7 @@ import JoditEditor from 'jodit-react';
 import { toast } from 'react-toastify';
 import { createPost, uploadPostImage } from '../services/post-service';
 import { getCurrentUserData } from '../services/auth-service';
+import CustomLoading from './CustomLoading';
 
 function AddPost() {
 
@@ -16,6 +17,7 @@ function AddPost() {
         content: ""
     });
     const [postImage, setPostImage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     // const joditConfig = useMemo(
     //     {
@@ -26,11 +28,14 @@ function AddPost() {
     // );
 
     useEffect(() => {
+        setLoading(true);
         getAllCategory().then(data => {
             // console.log(data);
             setCategoryList(data);
+            setLoading(false);
         }).catch(error => {
             console.log(error);
+            setLoading(false);
         })
     }, []);
 
@@ -92,6 +97,8 @@ function AddPost() {
         }
         setPostImage(fileObj);
     };
+
+    if (loading) return (<CustomLoading></CustomLoading>);
 
     return (
         <div className='wrapper mb-4'>

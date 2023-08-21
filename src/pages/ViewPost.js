@@ -8,6 +8,7 @@ import { BASE_URL } from '../services/helper';
 import { Breadcrumb, BreadcrumbItem, Input, Button } from 'reactstrap';
 import { createComment } from '../services/comment-service';
 import { isLoggedIn } from '../services/auth-service';
+import CustomLoading from '../components/CustomLoading';
 
 function ViewPost() {
 
@@ -16,13 +17,17 @@ function ViewPost() {
     const [newCommentData, setNewCommentData] = useState({
         content: ""
     })
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         getPostById(postId).then(data => {
             // console.log(data);
             setPostData(data);
+            setLoading(false);
         }).catch(error => {
             console.log(error);
+            setLoading(false);
             toast.error("Error in loading data!");
         })
     }, []);
@@ -40,16 +45,21 @@ function ViewPost() {
             toast.info("Login/SignUn to add a comment!");
             return;
         }
+        setLoading(true);
         createComment(newCommentData, postData.postId).then(data => {
             // console.log(data);
             toast.success("Comment added successfully!");
             setNewCommentData({ content: "" });
             setPostData({ ...postData, commentSet: [...postData.commentSet, data] });
+            setLoading(false);
         }).catch(error => {
             console.log(error);
+            setLoading(false);
             toast.error("Error in adding comment!");
         })
     }
+
+    if (loading) return (<CustomLoading></CustomLoading>);
 
     return (
         <Base>
